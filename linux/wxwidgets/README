@@ -13,16 +13,21 @@ package, _even_ if you already have wxWidgets installed.
 2. GETTING wxWidgets
 
 Download the source code of wxWidgets from www.wxwidgets.org. You'll
-need the GTK package, wxGTK-<version at least 2.6.1>.tar.bz2. Unpack
-it in a suitable temporary directory (a full build, explained below,
-will require about 510 MB). From now on, we'll abbreviate the
-wxWidgets directory (containing, e.g., the "configure" file) as WXD.
-Take note of this directory path, we'll need it in TreeMaker 5.0's
-own Makefile.
+need the GTK package, wxGTK-<version at least 2.6.1, but no 2.7 or
+later>.tar.bz2. Unpack it in a suitable temporary directory (a full
+build, explained below, will require about 510 MB in a i386 platform). 
+From now on, we'll abbreviate the wxWidgets directory (containing, 
+e.g., the "configure" file) as WXD. Take note of this directory path,
+we'll need it in TreeMaker 5.0's own Makefile.
+
+Notice - wxWidgets 2.7.0 and above changed the help API, unfortunately
+making it incompatible with TreeMaker. Until the TreeMaker developers
+can afford time to update it, please don't try using those newer wxWidgets
+versions - it simply will not work.
 
 3. PATCHING
 
-wxWidgets (at least up to and including version 2.6.2) for GTK does
+wxWidgets (at least up to and including version 2.6.4) for GTK does
 not fully or correctly support some features required by TreeMaker 5,
 including:
 
@@ -33,17 +38,21 @@ including:
 - document files with no suffix or suffixes other than the default
   .tmd5 (fixed in 2.6.3RC2)
 - double-clicking lists (scheduled to be fixed after 2.6.3RC2)
+- crash when releasing a copied widget border
 
 Unless you downloaded a more recent version of wxWidgets fixing these
 issues, you're strongly advised to "cd" to WXD and extract the files
 which you'll find in this directory:
 
-- wxPatch2.6.2.tar.gz (for wxWidgets 2.6.2, 2.6.3RC1 or previous)
-- wxPatch2.6.3.tar.gz (for wxWidgets 2.6.3RC2 or greater) 
+- wxPatch2.6.2.tar.gz (for wxGTK 2.6.2, 2.6.3RC1 or previous)
+- wxPatch2.6.3.tar.gz (for wxGTK 2.6.3RC2 or greater)
+- wxPatch2.6.4.tar.gz (for wxGTK 2.6.4) 
 
 4. COMPILING
 
 Copy the build-wxw.sh file from this directory to WXD, then cd to WXD.
+If you don't need Unicode support, you may edit build-wxw.sh and remove 
+the "--enable-unicode" string.
 
 wxWidgets may be compiled in a "release" or "debug" version, or both.
 If you're developing or debugging TreeMaker 5.0, you'll probably need

@@ -43,22 +43,21 @@ __END_PROMPT__
     "I" | "i")
       sh mkuninstall uninstall "$realprefix" "$appbinary" "$appname"
       if [ $prefix != $realprefix ]; then
-        wrapper="$appbinary.sh"
-        echo "$realprefix/bin/$appbinary -d $realprefix" > $wrapper
+        wrapper="$appbinary"
+        app="${appbinary}_bin"
+        /bin/mv "$appbinary" "$app"
+        echo "$realprefix/bin/${appbinary}_bin -d $realprefix" > $wrapper
       else
         wrapper=""
+        app="$binary"
       fi
-      sh copyfiles "$realprefix" "$appbinary" "$appname" "$wrapper"
+      sh copyfiles "$realprefix" "$app" "$appname" "$wrapper"
       
       if [ $? != 0 ]; then
         echo "Installation failed, please check directory permissions."
       else
         echo "Installation successful."
-        if [ $prefix != $realprefix ]; then
-          echo 'Use "'$realprefix/bin/$wrapper'" to run TreeMaker'
-        else
-          echo 'Use "'$realprefix/bin/$appbinary'" to run TreeMaker'
-        fi
+        echo 'Use "'$realprefix/bin/$appbinary'" to run TreeMaker'
         echo 'Use "'$realprefix/share/$appname/uninstall'" to uninstall Treemaker'
       fi
       exit 0

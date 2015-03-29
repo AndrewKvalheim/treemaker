@@ -26,9 +26,9 @@ Requisites for building TM5L:
 - GNU Make or compatible
 - wxWidgets (TM5L was tested with the wxGTK version), as described below
 
-TM5L was mainly ported and tested on a Fedora Core 4 distribution,
-running on a i386-compatible system. Figures for disk space requisites
-below are valid for this platform only.
+TM5L was mainly ported and tested on Fedora Core 4 (on an i386-compatible
+platform) and 8 and 9 (on an AMD86-64) distributions. Figures for disk 
+space requisites below are valid for those environments only.
 
 3. TreeMaker CONFIGURATIONS
 
@@ -54,8 +54,8 @@ building the library, _even_ if you already have wxWidgets installed.
 After wxWidgets is ready, edit the Makefile in this directory and, if
 necessary, change the few initial variables:
 
-- WXHOME is the wxWidgets source directory (it should contain the
-  build-debug and build-release subdirectories)
+- WXHOME is the wxWidgets source directory (it should contain at least
+  one of the build-debug and build-release subdirectories)
 - PROGRAM is the name the user will type for invoking TM5L
 - INSTALL_PREFIX is the directory prefix for installation. Usually it
   is /usr/local, meaning TM5L's binary program will be installed in
@@ -73,8 +73,9 @@ appropriate for end users.
 Only while building the TM5L program and auxiliary files, a "build"
 subdirectory will be created, requiring additional disk space: about
 12MB, 55MB, 66MB and 96MB for the release, profile, development and
-debug configurations, respectively. All configurations may be built on
-the same system.
+debug configurations, respectively (these are valid for i386-based 
+platforms; values for 64-bit installations will differ). All 
+configurations may be built on the same system.
 
 4.4 Installing TreeMaker
 
@@ -83,8 +84,9 @@ After building, repeat the "make" command with an "install" target
 proper directories. You'll need write permission for those directories
 and additional (permanent this time) disk space (roughly 7MB, 22MB,
 30MB and 60MB for the release, profile, development and debug
-configurations, respectively). Unless you specified different
-INSTALL_PREFIXes, only one configuration may be installed at a time.
+configurations, respectively, in i386 platforms). Unless you specified
+different INSTALL_PREFIXes, only one configuration may be installed at
+a time.
 
 4.5. Building a Distribution Bundle
 
@@ -99,7 +101,8 @@ target "dist" (e.g., "make dist").
 Only while building a distribution bundle, additional disk space is
 required beyond that needed when building the program: roughly 8MB,
 20MB, 22MB and 40MB for the release, profile, development and debug
-configurations, respectively. All four bundles may coexist.
+configurations, respectively, in i386 platforms. All four bundles
+may coexist.
 
 4.6. TM5L includes some stand-alone, command-line tests which do not
 involve the GUI. They be may used during development and testing to

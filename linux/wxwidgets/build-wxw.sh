@@ -29,20 +29,24 @@ do
   esac
 done
 
-if [ ! $noconfig ]
-then
-  echo "Configuring makefiles..."
-  autoconf
-fi
+# CAF - disabled - in Fedora 8/9, somehow this caused all Makefiles to
+# miss a trailing "/" in the "top_builddir" variable (like ../.. instead
+# of ../../), which causes no end of problems
+#if [ ! $noconfig ]
+#then
+#  echo "Configuring makefiles..."
+#  autoconf
+#fi
 
 # wxWidgets's options:
+#  --enable-unicode: add Unicode support (this is optional)
 #  --with-gnomeprint: use the nice, PDF-enabled GNOME printing dialog if
 #    available - it does _not_ require GNOME to either compile or run
 #  --without-libtiff: we don't use TIFF at the moment, and each removed
 #    DLL reduces binary portability problems
 #  --disabled-shared, --enable-monolithic: again, for better binary
-#    portability
-options='--disable-shared --enable-monolithic --with-opengl --enable-std_iostreams --enable-std_string --with-gnomeprint --without-libtiff'
+#    portability but increased disk footprint
+options='--enable-unicode --disable-shared --enable-monolithic --with-opengl --enable-std_iostreams --enable-std_string --with-gnomeprint --without-libtiff'
 
 if [ ! $norelease ]
 then

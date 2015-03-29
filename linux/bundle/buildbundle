@@ -30,7 +30,7 @@ if [ "$2" = "release" ]; then
   strip "$program"
 fi
 # Link binary and all auxiliary files so we don't waste disk space
-ln "$program" "$bundle"
+ln "$program" "$bundle"/"$program"
 ln ../help.zip "$bundle"
 
 ln ../../../LICENSE.txt "$bundle"

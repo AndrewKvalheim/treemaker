@@ -259,9 +259,9 @@ bool tmwxApp::OnInit(void)
   if (! mConfig.mInstallDir.IsEmpty ())
     prefix = mConfig.mInstallDir;
   else {
-    char *p = getenv ("TREEMAKER_PREFIX");
+    const char *p = getenv ("TREEMAKER_PREFIX");
     if (p)
-      prefix = wxT (p);
+      prefix = wxString::FromAscii (p);
     else
       prefix = wxT (INSTALL_PREFIX);
   }
@@ -275,8 +275,8 @@ bool tmwxApp::OnInit(void)
 
 #ifdef __LINUX__
   /* Load icons. Silently ignore failures (SetIcon will also silently fail) */
-  mConfig.mDocIcon.LoadFile (wxT (mDataDir + "/Icon_doc_48.png"));
-  mConfig.mAppIcon.LoadFile (wxT (mDataDir + "/Icon_app_48.png"));
+  mConfig.mDocIcon.LoadFile (mDataDir + wxT("/Icon_doc_48.png"));
+  mConfig.mAppIcon.LoadFile (mDataDir + wxT("/Icon_app_48.png"));
 #endif // __LINUX__
   
 #ifdef TM_USE_LOGFRAME

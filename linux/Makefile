@@ -7,8 +7,8 @@
 ### your platform
 
 # Where wxWidgets is installed
-WXHOME = /opt/wxGTK-2.6.2
-# Binary name
+WXHOME = ../../wxGTK-2.6.4
+# Binary name (the distribution bundle will append a "_bin" suffix)
 PROGRAM = TreeMaker
 # Installation directory prefix (usually /usr/local); by wxWidgets
 # convention for Unix, data files will always be created in a 

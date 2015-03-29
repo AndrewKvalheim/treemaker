@@ -65,7 +65,7 @@ proc chooseTmpDir {} {
 proc extract {} {
   global tmpDir
   if [catch {exec sh -c \
-    "tail +$skipLines $0 | (cd \$tmpDir && gunzip -c | tar xf -)" \
+    "tail -n +$skipLines $0 | (cd \$tmpDir && gunzip -c | tar xf -)" \
     } res] {
     tk_messageBox -icon error -message "\$res" \
                   -title "Error in command" -type ok
@@ -89,7 +89,7 @@ grid columnconfigure . 1 -weight 1
 grid .frB -columnspan 3 -sticky ews -pady 10
 grid rowconfigure . 3 -weight 1
 
-if [catch {exec tail +$skipLinesSum $0 | cksum} calcSum] {
+if [catch {exec tail -n +$skipLinesSum $0 | cksum} calcSum] {
     tk_messageBox -icon error -message "\$calcSum" \
                   -title "Cannot check integrity" -type ok
 } else {
@@ -108,7 +108,7 @@ fi
 echo $myName
 echo "  $ed"
 echo "Testing package integrity..."
-if [ "$checksum" = "`tail +$skipLinesSum $0 | cksum`" ]; then
+if [ "$checksum" = "`tail -n +$skipLinesSum $0 | cksum`" ]; then
   echo "  package ok"
 else
   echo "  ERROR - package not ok. Please download another copy"
@@ -137,14 +137,14 @@ __ENDPROMPT__
       echo "If extraction fails, check for directory and file permissions"
       echo "or become a privileged user, then try again."
       echo
-      tail +$skipLines $0 | (cd $instdir && \
+      tail -n +$skipLines $0 | (cd $instdir && \
 	 gunzip -c | tar xf -) && \
 	cd $instdir/$bundle && sh ./installer \
 	&& cd .. && exec rm -r $bundle
         exit 0
       ;;
     "x" | "X")
-      tail +$skipLines $0 | (cd $installdir && gunzip -c | tar xf -)
+      tail -n +$skipLines $0 | (cd $installdir && gunzip -c | tar xf -)
       ;;
     "t" | "T")
       echo "Type the temporary installation directory:"

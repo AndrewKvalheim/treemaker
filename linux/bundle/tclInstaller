@@ -32,7 +32,7 @@ proc phase3 {state} {
   if { "$state" == "on" } {
     global appbinary appname instDir wrapper
     if { "$wrapper" != "" } {
-      set app "$appbinary.sh"
+      set app "$appbinary"
     } else {
       set app "$appbinary"
     }
@@ -41,7 +41,7 @@ proc phase3 {state} {
     .frDone.msg configure -state normal
     .frDone.msg delete 1.0 end
     .frDone.msg insert insert "Installation is complete.\n\nRun\
-TreeMaker with '$dir/bin/$app'.\nYou may uninstall TreeMaker with\
+TreeMaker with '$dir/bin/$appbinary'.\nYou may uninstall TreeMaker with\
 '$dir/share/$appname/uninstall'."
     .frDone.msg configure -state disabled
     pack .frDone -fill both -expand y
@@ -59,12 +59,18 @@ proc updDirExp {} {
 in subdirectories of the installation prefix, like $dir/bin\
 and $dir/share."
 
+  # originally attempted to rename app and create a wrapper only if user
+  # chose a non-default directory, but give it up and always create it,
+  # because user may (after a failed copyfiles) change the directory
+  # after the renaming and wrapper creation. Someday could defer renaming
+  # renaming/creation after actual copy
   if {"$dir" != "$instDir0"} {
-    append s "\nTreeMaker may be run with '$dir/bin/$appbinary.sh'."
-    set wrapper "\"$dir/bin/$appbinary\" -d \"$dir\""
+    set wrapper "1"
   } else {
     set wrapper ""
   }
+  #append s "\nAfter installed, TreeMaker may be run with '$dir/bin/$appbinary'."
+
   .frDir.msg configure -state normal
   .frDir.msg delete 1.0 end
   .frDir.msg insert insert "$s"
@@ -179,17 +185,24 @@ button .frBt2.btB -text "Back" -command { phase2 off
 }
 button .frBt2.btA -text "Install" -command {
   global instDir wrapper appbinary appname
-  exec sh mkuninstall uninstall "$instDir" "$appbinary" "$appname"
+  exec sh mkuninstall uninstall "$instDir" "${appbinary}_bin" "$appname"
 
-  if { "$wrapper" != "" } {
-    set wrapsh [open "$appbinary.sh" w]
+  if { 1 || "$wrapper" != "" } {
+    # Create a shell script wrapper which invokes the binary
+    # with the data directory
+    exec /bin/mv "$appbinary" "${appbinary}_bin"
+    set wrapsh [open "$appbinary" w]
+    set wrapper "\"$instDir/bin/${appbinary}_bin\" -d \"$instDir\""
     puts $wrapsh $wrapper
     close $wrapsh
-    set wrapsh "$appbinary.sh"
+    set wrapsh "$appbinary"
+    set app "${appbinary}_bin"
   } else {
     set wrapsh ""
+    set app "$appbinary"
   }
-  if [catch {exec sh copyfiles "$instDir" "$appbinary" "$appname" "$wrapsh" } res] {
+exec sh
+  if [catch {exec sh copyfiles "$instDir" "$app" "$appname" "$wrapsh" } res] {
     tk_messageBox -icon error -message "$res" \
                   -title "Error - check directory permissions" -type ok
   } else {
