@@ -317,7 +317,7 @@ $(HELPCACHE): $(WXHLPCACHEDIR)/hhp2cached \
 	$(H2S)/help/*.htm $(H2S)/help/*.hhc $(H2S)/help/*.hhp \
 	$(H2S)/help/*.hhk $(H2S)/help/*.css $(H2S)/help/*.png
 	@echo Creating help cache
-	-@rm $(HELPCACHE)
+	-@rm -f $(HELPCACHE)
 	-@$(WXHLPCACHEDIR)/hhp2cached $(H2S)/help/treemaker.hhp
 
 #-$(WXHLPCACHEDIR)/hhp2cached $(H2S)/help/treemaker.hhp
