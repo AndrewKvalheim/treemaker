@@ -1,0 +1,16 @@
+#!/bin/bash
+set -o errexit
+
+# Create X server credentials (See http://stackoverflow.com/a/25280523)
+xauth="$(tempfile)"; trap 'rm -f "$xauth"' EXIT
+touch "$xauth"
+xauth nlist "$DISPLAY" | sed -e 's/^..../ffff/' | xauth -f "$xauth" nmerge -
+
+# Run arbitrary Docker command using X server credentials
+docker run --volume /tmp/.X11-unix:/tmp/.X11-unix \
+           --volume "$xauth":"$xauth" \
+           --env XAUTHORITY="$xauth" \
+           --env DISPLAY="$DISPLAY" \
+           "$@"
+
+exit
