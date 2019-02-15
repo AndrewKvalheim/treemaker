@@ -14,6 +14,7 @@ to run on recent releases without modification.
 ## Dependencies
 
   - [Docker]
+  - an [X server]
 
 ## Installation
 
@@ -27,16 +28,17 @@ to run on recent releases without modification.
 
 ## Usage
 
- 1. Run TreeMaker via a [wrapper] for `docker run` that configures access to the
-    X server:
+Included is a [wrapper] for `docker run` that configures access to the X server. Read it and, if necessary, adjust it to fit your system.
 
-    ```console
-    $ ./docker_run_x --rm treemaker --help
-    Usage: TreeMaker [-v] [-h] [-d <str>] [document...]
-      -v, --version         show program version
-      -h, --help            show option list
-      -d, --datadir=<str>   TreeMaker data directory path prefix
-    ```
+Run TreeMaker via the wrapper:
+
+```console
+$ ./docker_run_x --rm treemaker --help
+Usage: TreeMaker [-v] [-h] [-d <str>] [document...]
+  -v, --version         show program version
+  -h, --help            show option list
+  -d, --datadir=<str>   TreeMaker data directory path prefix
+```
 
 
   [Docker]: https://www.docker.com/
@@ -45,3 +47,4 @@ to run on recent releases without modification.
   [talk_preview]: https://img.youtube.com/vi/NYKcOFQCeno/mqdefault.jpg
   [TreeMaker]: https://langorigami.com/article/treemaker/
   [wrapper]: docker_run_x
+  [X server]: https://en.wikipedia.org/wiki/X_Window_System#Implementations
