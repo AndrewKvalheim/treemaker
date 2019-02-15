@@ -40,8 +40,8 @@ to run on recent releases without modification.
 
 
   [Docker]: https://www.docker.com/
-  [Robert J. Lang]: http://www.langorigami.com/
+  [Robert J. Lang]: https://langorigami.com/
   [talk]: https://youtu.be/NYKcOFQCeno?t=283
   [talk_preview]: https://img.youtube.com/vi/NYKcOFQCeno/mqdefault.jpg
-  [TreeMaker]: http://www.langorigami.com/science/computational/treemaker/treemaker.php
+  [TreeMaker]: https://langorigami.com/article/treemaker/
   [wrapper]: docker_run_x
