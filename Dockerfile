@@ -14,6 +14,7 @@ FROM base as build
 RUN apt-get install --yes \
     autoconf \
     build-essential \
+    curl \
     freeglut3-dev \
     libgtk2.0-dev \
     zip
