@@ -1,5 +1,4 @@
 FROM ubuntu:10.04
-MAINTAINER Andrew Kvalheim <Andrew@Kvalhe.im>
 
 # Use repository for end-of-life releases
 RUN sed --in-place 's/archive/old-releases/' /etc/apt/sources.list
