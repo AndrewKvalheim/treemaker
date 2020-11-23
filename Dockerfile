@@ -14,11 +14,11 @@ RUN apt-get update \
                              zip
 
 # Download wxWidgets source
-ADD http://downloads.sourceforge.net/project/wxwindows/2.6.4/wxGTK-2.6.4.tar.bz2 /tmp/
+ADD https://downloads.sourceforge.net/project/wxwindows/2.6.4/wxGTK-2.6.4.tar.bz2 /tmp/
 RUN tar --extract --bzip2 --file /tmp/wxGTK-2.6.4.tar.bz2 --directory /tmp
 
 # Work around wxWidgets bug #10883
-RUN curl 'http://trac.wxwidgets.org/changeset/61009/svn-wx?format=diff&new=61009' \
+RUN curl 'https://trac.wxwidgets.org/changeset/61009/svn-wx?format=diff&new=61009' \
     | patch --strip 4 --directory /tmp/wxGTK-2.6.4
 
 # Import TreeMaker source
