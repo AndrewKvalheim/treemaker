@@ -4,13 +4,13 @@ FROM ubuntu:10.04
 RUN sed --in-place 's/archive/old-releases/' /etc/apt/sources.list
 
 # Install dependencies
-RUN apt-get update \
-    && apt-get install --yes autoconf \
-                             build-essential \
-                             freeglut3-dev \
-                             libgtk2.0-dev \
-                             xvfb \
-                             zip
+RUN apt-get update && apt-get install --yes \
+    autoconf \
+    build-essential \
+    freeglut3-dev \
+    libgtk2.0-dev \
+    xvfb \
+    zip
 
 # Download wxWidgets source
 ADD https://downloads.sourceforge.net/project/wxwindows/2.6.4/wxGTK-2.6.4.tar.bz2 /tmp/
