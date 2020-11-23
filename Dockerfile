@@ -8,16 +8,14 @@ RUN sed --in-place 's/archive/old-releases/' /etc/apt/sources.list
 RUN apt-get update \
     && apt-get install --yes autoconf \
                              build-essential \
-                             curl \
                              freeglut3-dev \
                              libgtk2.0-dev \
                              xvfb \
                              zip
 
 # Download wxWidgets source
-RUN curl --location \
-         http://downloads.sourceforge.net/project/wxwindows/2.6.4/wxGTK-2.6.4.tar.bz2 \
-    | tar --extract --bzip2 --directory /tmp
+ADD http://downloads.sourceforge.net/project/wxwindows/2.6.4/wxGTK-2.6.4.tar.bz2 /tmp/
+RUN tar --extract --bzip2 --file /tmp/wxGTK-2.6.4.tar.bz2 --directory /tmp
 
 # Work around wxWidgets bug #10883
 RUN curl 'http://trac.wxwidgets.org/changeset/61009/svn-wx?format=diff&new=61009' \
