@@ -1,15 +1,21 @@
-FROM ubuntu:10.04
+FROM ubuntu:10.04 as base
 
 # Use repository for end-of-life releases
 RUN sed --in-place 's/archive/old-releases/' /etc/apt/sources.list
 
 # Install dependencies
 RUN apt-get update && apt-get install --yes \
+    libgtk2.0-0 \
+    xvfb
+
+FROM base as build
+
+# Install build dependencies
+RUN apt-get install --yes \
     autoconf \
     build-essential \
     freeglut3-dev \
     libgtk2.0-dev \
-    xvfb \
     zip
 
 # Download wxWidgets source
@@ -40,6 +46,12 @@ RUN cd /tmp/treemaker/linux \
 # Install TreeMaker
 RUN cd /tmp/treemaker/linux \
     && xvfb-run make install
+
+FROM base
+
+# Preserve TreeMaker installation
+COPY --from=build /usr/local/bin/TreeMaker /usr/local/bin/
+COPY --from=build ["/usr/local/share/TreeMaker 5", "/usr/local/share/TreeMaker 5"]
 
 # Display TreeMaker version
 RUN xvfb-run TreeMaker --version
