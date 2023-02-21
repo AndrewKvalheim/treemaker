@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -o errexit
 
 # Create X server credentials (See http://stackoverflow.com/a/25280523)
