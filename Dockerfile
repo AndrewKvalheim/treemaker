@@ -31,9 +31,9 @@ COPY src /tmp/treemaker
 
 # Apply TreeMaker's patches to wxWidgets
 RUN tar --extract \
-        --gzip \
-        --file /tmp/treemaker/linux/wxwidgets/wxPatch2.6.4.tar.gz \
-        --directory /tmp/wxGTK-2.6.4
+    --gzip \
+    --file /tmp/treemaker/linux/wxwidgets/wxPatch2.6.4.tar.gz \
+    --directory /tmp/wxGTK-2.6.4
 
 # Build wxWidgets
 RUN cd /tmp/wxGTK-2.6.4 \
