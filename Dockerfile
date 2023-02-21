@@ -14,7 +14,6 @@ FROM base as build
 RUN apt-get install --yes \
     autoconf \
     build-essential \
-    curl \
     freeglut3-dev \
     libgtk2.0-dev \
     zip
@@ -24,8 +23,8 @@ ADD https://downloads.sourceforge.net/project/wxwindows/2.6.4/wxGTK-2.6.4.tar.bz
 RUN tar --extract --bzip2 --file /tmp/wxGTK-2.6.4.tar.bz2 --directory /tmp
 
 # Work around wxWidgets bug #10883
-RUN curl 'https://trac.wxwidgets.org/changeset/61009/svn-wx?format=diff&new=61009' \
-    | patch --strip 4 --directory /tmp/wxGTK-2.6.4
+ADD https://trac.wxwidgets.org/changeset/61009/svn-wx?format=diff&new=61009 /tmp/
+RUN patch --input /tmp/changeset_61009.diff --strip 4 --directory /tmp/wxGTK-2.6.4
 
 # Import TreeMaker source
 COPY src /tmp/treemaker
