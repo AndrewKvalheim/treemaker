@@ -23,8 +23,8 @@ ADD https://downloads.sourceforge.net/project/wxwindows/2.6.4/wxGTK-2.6.4.tar.bz
 RUN tar --extract --bzip2 --file /tmp/wxGTK-2.6.4.tar.bz2 --directory /tmp
 
 # Work around wxWidgets bug #10883
-ADD https://trac.wxwidgets.org/changeset/61009/svn-wx?format=diff&new=61009 /tmp/
-RUN patch --input /tmp/changeset_61009.diff --strip 4 --directory /tmp/wxGTK-2.6.4
+ADD https://github.com/utelle/wxWidgets/commit/c579f80892a919fc8408bf7b366ab3d86d4f38f0.patch /tmp/
+RUN patch --input /tmp/c579f80892a919fc8408bf7b366ab3d86d4f38f0.patch --strip 1 --directory /tmp/wxGTK-2.6.4
 
 # Import TreeMaker source
 COPY src /tmp/treemaker
